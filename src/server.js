@@ -1,6 +1,9 @@
-const app = require('./app');
+import app from './app';
+import dotenv from 'dotenv';
 
-const port = 3333;
+dotenv.config();
+
+const port = process.env.PORT;
 
 app.listen(port, () => {
     console.log(`Escutando a porta ${port}`);

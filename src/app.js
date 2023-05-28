@@ -1,5 +1,5 @@
-const express = require('express');
-const routes = require('./routes');
+import express from 'express';
+import routes from './routes';
 
 const server = express();
 
@@ -7,4 +7,4 @@ server.use(express.json());
 
 server.use(routes);
 
-module.exports = server;
+export default server;
