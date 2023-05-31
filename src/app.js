@@ -7,14 +7,15 @@ class App {
     constructor() {
         this.server = express();
 
+        dotenv.config();
+        db();
+
         this.middleware();
         this.routes();
     }
 
     middleware() {
-        dotenv.config();
         this.server.use(express.json());
-        db();
     }
 
     routes() {
