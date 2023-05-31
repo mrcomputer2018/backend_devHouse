@@ -3,11 +3,24 @@ import routes from './routes';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
-dotenv.config();
+class App {
+    constructor() {
+        this.server = express();
 
-const server = express();
+        this.middleware();
+        this.routes();
+    }
 
-server.use(express.json());
+    middleware() {
+        dotenv.config();
+        this.server.use(express.json());
+        db();
+    }
+
+    routes() {
+        this.server.use(routes);
+    }
+}
 
 async function db(){
     try {
@@ -23,8 +36,4 @@ async function db(){
     }
 }
 
-db();
-
-server.use(routes);
-
-export default server;
+module.exports = new App().server;
