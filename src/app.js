@@ -25,7 +25,6 @@ class App {
 
 async function db(){
     try {
-
         await mongoose.connect(process.env.MONGODB_URI, {
             useNewUrlParser: true,
             useUnifiedTopology: true
