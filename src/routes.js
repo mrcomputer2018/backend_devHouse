@@ -8,11 +8,11 @@ import HouseController from './controllers/HouseController';
 const routes = Router();
 
 // iniciando multer
-const multer = multer(uploadConfig);
+const upload = multer(uploadConfig);
 
 routes.post('/sessions', SessionController.store);
 
 // Houses
-routes.post('/houses', upload.single('thumbmail'), HouseController.store);
+routes.post('/houses', upload.single('thumbnail'), HouseController.store);
 
 export default routes;
