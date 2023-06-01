@@ -6,6 +6,7 @@ const routes = Router();
 
 routes.post('/sessions', SessionController.store);
 
+// Houses
 routes.post('/houses', HouseController.store);
 
 export default routes;
