@@ -36,4 +36,4 @@ async function db(){
     }
 }
 
-module.exports = new App().server;
+export default new App().server;
