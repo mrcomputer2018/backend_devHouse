@@ -57,7 +57,32 @@ class HouseController {
     }
 
     async destroy(req, res){
-        res.json({ ok: true });
+        try {
+            const house_id = req.body.house_id;
+            const user_id = req.headers.user_id;
+
+            const user = await User.findById(user_id) || 0;
+            const house = await House.findById(house_id) || 0;
+
+            const find = await House.findByIdAndDelete({ _id: house_id });
+
+            if(!find){
+                return res.status(404).json({ error: "Casa informada não existe."})
+            }
+
+            if(!user){
+                return res.status(404).json({ error: "Usuario informado não existe."})
+            }
+
+            if(String(user._id) !== String(house.user)){
+                return res.status(401).json({ error: 'Não autorizado.' });
+            }
+
+            res.json({ message: 'Casa deletada com sucesso.' });
+
+        } catch (error) {
+            return res.json({ error: error.message });
+        }
     }
 }
 
