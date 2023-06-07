@@ -6,8 +6,11 @@ class ReserveController{
 
     async destroy(req, res) {
         try {
+            const reserve_id = req.body.reserve_id;
 
-            res.json({ ok: true});
+            await Reserve.findByIdAndDelete({ _id: reserve_id });
+
+            res.json({ message: 'Reserva cancelada com sucesso.' });
 
         } catch (error) {
             console.log({ error: error.message});
