@@ -1,5 +1,5 @@
-import House from "../models/House";
-import User from "../models/User";
+import House from '../models/House';
+import User from '../models/User';
 
 class DasnboardController{
     async show(req,res){
