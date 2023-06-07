@@ -1,5 +1,6 @@
 import House from '../models/House';
 import User from '../models/User';
+import * as Yup from 'yup';
 
 class HouseController {
 
@@ -12,23 +13,40 @@ class HouseController {
     }
 
     async store(req, res){ 
-        //console.log(req.body);
-        //console.log(req.file);
-        const filename = req.file.filename;
-        const { description, price, location, status } = req.body;
-        const { user_id } = req.headers;
+        try {
+            //console.log(req.body);
+            //console.log(req.file);
+            const schema = Yup.object().shape({
+                description: Yup.string().required(),
+                price: Yup.number().required(),
+                location: Yup.string().required(),
+                status: Yup.boolean().required(),
+              });
 
-        // criando regitro no BD
-        const house = await House.create({
-            user: user_id,
-            thumbnail: filename,
-            description: description,
-            price: price,
-            location: location,
-            status: status,
-        })
+            const filename = req.file.filename;
+            const { description, price, location, status } = req.body;
+            const { user_id } = req.headers;
 
-        return res.json(house);
+            if(!(await schema.isValid(req.body))){
+                return res.status(400).json({ error: 'Falha na validação.'});
+            }
+
+            // criando regitro no BD
+            const house = await House.create({
+                user: user_id,
+                thumbnail: filename,
+                description: description,
+                price: price,
+                location: location,
+                status: status,
+            })
+
+            return res.json(house);
+            
+        } catch (error) {
+            console.log({ error: error.message });
+        }
+        
     }
 
     async update(req, res){
