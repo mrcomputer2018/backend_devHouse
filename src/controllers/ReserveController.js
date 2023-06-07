@@ -54,7 +54,7 @@ class ReserveController{
             if(String(user._id) === String(house.user)) {
                 return res.status(401).json({ error: 'Reserva não permitida.' });
             }
-    
+
             const reserve = await Reserve.create({
                 house: house_id,
                 user: user_id,
@@ -65,13 +65,13 @@ class ReserveController{
             .populate('house')
             .populate('user')
             .exec();
-    
+
             return res.json(populateReserve);
 
         } catch (error) {
             console.log({ error: error.message });
         }
-       
+
     }
 }
 
