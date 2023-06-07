@@ -3,14 +3,33 @@ import User from '../models/User';
 import House from '../models/House';
 
 class ReserveController{
-    async index(req,res) {
+
+    async destroy(req, res) {
         try {
-            const reserves = await Reserve.
+
+            res.json({ ok: true});
+
         } catch (error) {
             console.log({ error: error.message});
         }
     }
 
+    // Listando
+    async index(req,res) {
+        try {
+            const user_id = req.headers.user_id;
+
+            const reserves = await Reserve.find({ user: user_id })
+            .populate('house');
+
+            return res.json(reserves);
+
+        } catch (error) {
+            console.log({ error: error.message});
+        }
+    }
+
+    // criando
     async store(req, res){
         try {
             const house_id = req.params.house_id;

@@ -25,5 +25,6 @@ routes.get('/dashboard', DashboardController.show);
 
 //Reserve
 routes.post('/houses/:house_id/reserve', ReserveController.store);
+routes.get('/reserves', ReserveController.index);
 
 export default routes;
